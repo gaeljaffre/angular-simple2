@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 
-import { ObjetService, Cat, url } from './objet.service';
-
 // à enlever
 import { HttpClient } from '@angular/common/http';
 
@@ -14,16 +12,12 @@ import { HttpClient } from '@angular/common/http';
 
 export class AppComponent  {
   name = 'Angular';
-  url = url;
-  urltab = "https://Simple1.voyagesgael.repl.co/tab";
-  posts: any[];
+  url = "https://Simple1.voyagesgael.repl.co";
+  urltab2 = "https://Simple1.voyagesgael.repl.co/tab2";
 
-  objet;
-  cat: Cat;
+  lignes: any[];
 
   constructor(
-    private objetService: ObjetService,
-    // XXX à enlever
     private http: HttpClient
   ) {
 
@@ -32,70 +26,44 @@ export class AppComponent  {
   ngOnInit() {
   }
 
-  getTestDirect() {
-    let nom;
+  getTexte() {
 
-    this.http.get(url + "tab").subscribe(
+    console.log("appel de getTexte()");
+
+    let name:string = '';
+    let age:number;
+    let found:boolean;
+
+    console.log("ici");
+
+    this.http.get("https://my-json-server.typicode.com/techsithgit/json-faker-directory/profiles/?name=john").subscribe(
       (data: any[]) => {
-          console.log('data: ' + data);
           if(data.length){
-            console.log('data: ' + data);
-            nom = data[0].name;
+            console.log(data);
+            age = data[0].age;
+            found = true;
+            console.log("age1 = " + age);
           }
       }
     );
-    console.log("nom = " + nom);
-    return nom;
-  }
 
-  getTestDirect2() {
-    //var v = this.http.get(this.urltab).pipe(map((res:Response) => res.json()));
-    console.log("lecture de " + this.urltab);
-    var v = this.http.get(this.urltab).subscribe((data: any) =>       
-     {
-        console.log(data);
-        this.cat = {
-          id: data['id'],
-          name: data['name'],
-          numero: data['numero']
-        }
-     });;
-    console.log(this.cat);
-    //console.log(this.cat.name);
-  }
-
-  getTest() {
-      console.log("ici");
-      this.objetService.getTexte().subscribe((data)=>{
-        console.log(data);
-        this.objet = data['objet'];
-        //window.alert('');
-    });
-  }
-
-  getTexte() {
-    let cat: Cat;
-    this.objetService.getTexte().subscribe((data: Cat) => cat = {
-        name: data['name']
+    let nom: string;
+    let num: number;
+    this.http.get(this.urltab2).subscribe(
+      (data: any[]) => {
+          if(data.length){
+            console.log(data);
+            age = data[0].age;
+            found = true;
+            console.log("age = " + age);
+          }
       }
     );
 
-    return cat.name;
   }
 
   post() {
-    this.objetService.postTexte();
-  }
 
-  getReponse() {
-    let variable: any;
-    this.objetService.getResponse().subscribe((data) => variable = {
-        response: data['response']
-      }
-    );
-
-  console.log(variable);
-    return variable;
   }
 
 
