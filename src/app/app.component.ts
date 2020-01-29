@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent  {
   name = 'Angular';
   url = "https://Simple1.voyagesgael.repl.co";
-  urltab2 = "https://Simple1.voyagesgael.repl.co/tab2";
+  urltab2 = "https://Simple1.voyagesgael.repl.co/tab";
 
   lignes: any[];
 
@@ -53,12 +53,17 @@ export class AppComponent  {
       (data: any[]) => {
           if(data.length){
             console.log(data);
-            age = data[0].age;
-            found = true;
-            console.log("age = " + age);
+            nom = data[0].name;
+            console.log("name = " + nom);
           }
       }
-    );
+      , err => {
+                console.log("Erreur : " + err.message);
+              },
+        () => {
+          console.log('completed');
+        }
+      );
 
   }
 
