@@ -6,10 +6,23 @@ import { HttpClient } from '@angular/common/http';
 
 export const url = 'https://Simple1.voyagesgael.repl.co/';
 
-export interface Cat {
-  id: number,
-  name: string,
-  numero: number
+export class Cat {
+  id: number;
+  name: string;
+  numero: number;
+
+/*
+  constructor(id: number, name: string, numero: number) {
+    this.id = id;
+    this.name = name;
+    this.numero = numero;
+  }
+  */
+  constructor(o: Object) {
+    this.id = o.id;
+    this.name = o.name;
+    this.numero = o.numero;
+  }
 }
 
 @Injectable()
