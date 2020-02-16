@@ -71,7 +71,21 @@ export class AppComponent  {
   }
 
   post() {
-
+    console.log("post");
+    let data: Cat = {id:1, name:"Minou-Chat", numero:17};
+    console.warn("chat", data);
+    this.http.post(this.url, data).subscribe(
+      () => {
+            console.log("data: " + data);
+      }
+      , err => {
+                console.log("Erreur : " + err.message);
+              },
+        () => {
+          console.log('completed: ' + data.name);
+        }
+      );
+    console.log('fin: ' + data.name);
   }
 
 
